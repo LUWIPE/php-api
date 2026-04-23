@@ -12,11 +12,10 @@ class CartSeeder extends Seeder
     {
         $userIds = User::query()->orderBy('id')->limit(10)->pluck('id')->all();
 
-        $rows = [];
         foreach ($userIds as $userId) {
-            $rows[] = ['user_id' => $userId];
+            Cart::query()->firstOrCreate([
+                'user_id' => $userId,
+            ]);
         }
-
-        Cart::query()->insert($rows);
     }
 }

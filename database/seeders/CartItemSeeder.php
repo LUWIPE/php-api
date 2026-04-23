@@ -14,15 +14,20 @@ class CartItemSeeder extends Seeder
         $cartIds = Cart::query()->orderBy('id')->limit(10)->pluck('id')->all();
         $productIds = Product::query()->orderBy('id')->limit(10)->pluck('id')->all();
 
-        $rows = [];
         for ($i = 0; $i < 10; $i++) {
-            $rows[] = [
-                'cart_id' => $cartIds[$i],
-                'product_id' => $productIds[$i],
-                'amount' => $i + 1,
-            ];
-        }
+            if (! isset($cartIds[$i], $productIds[$i])) {
+                continue;
+            }
 
-        CartItem::query()->insert($rows);
+            CartItem::query()->firstOrCreate(
+                [
+                    'cart_id' => $cartIds[$i],
+                    'product_id' => $productIds[$i],
+                ],
+                [
+                    'amount' => $i + 1,
+                ]
+            );
+        }
     }
 }
