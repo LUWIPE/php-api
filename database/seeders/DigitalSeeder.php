@@ -9,9 +9,7 @@ class DigitalSeeder extends Seeder
 {
     public function run(): void
     {
-        Digital::query()->upsert([
-            ['name' => 'Ja'],
-            ['name' => 'Nej'],
-        ], ['name'], ['name']);
+        Digital::query()->updateOrCreate(['name' => 'Ja']);
+        Digital::query()->updateOrCreate(['name' => 'Nej']);
     }
 }

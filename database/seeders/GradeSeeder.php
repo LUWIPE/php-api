@@ -9,12 +9,10 @@ class GradeSeeder extends Seeder
 {
     public function run(): void
     {
-        Grade::query()->upsert([
-            ['name' => 'S', 'desc' => 'Som ny stand'],
-            ['name' => 'A', 'desc' => 'Fremragende stand'],
-            ['name' => 'B', 'desc' => 'God stand'],
-            ['name' => 'C', 'desc' => 'Rimelig stand'],
-            ['name' => 'D', 'desc' => 'Dårlig stand'],
-        ], ['name'], ['desc']);
+        Grade::query()->updateOrCreate(['name' => 'S'], ['desc' => 'Som ny stand']);
+        Grade::query()->updateOrCreate(['name' => 'A'], ['desc' => 'Fremragende stand']);
+        Grade::query()->updateOrCreate(['name' => 'B'], ['desc' => 'God stand']);
+        Grade::query()->updateOrCreate(['name' => 'C'], ['desc' => 'Rimelig stand']);
+        Grade::query()->updateOrCreate(['name' => 'D'], ['desc' => 'Dårlig stand']);
     }
 }
