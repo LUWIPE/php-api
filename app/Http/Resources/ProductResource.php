@@ -7,6 +7,19 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
 {
+    private function resolveImageUrl(?string $imgUrl, Request $request): ?string
+    {
+        if (! $imgUrl) {
+            return $imgUrl;
+        }
+
+        if (str_starts_with($imgUrl, 'http://') || str_starts_with($imgUrl, 'https://')) {
+            return $imgUrl;
+        }
+
+        return $request->getSchemeAndHttpHost() . '/' . ltrim($imgUrl, '/');
+    }
+
     /**
      * Transform the resource into an array.
      *
@@ -18,7 +31,7 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'desc' => $this->desc,
-            'img_url' => $this->img_url,
+            'img_url' => $this->resolveImageUrl($this->img_url, $request),
             'price' => $this->price,
             'stock' => $this->stock,
             'release' => $this->release,
