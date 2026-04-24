@@ -13,5 +13,6 @@ class TypeSeeder extends Seeder
         Type::query()->updateOrCreate(['name' => 'Spil'], ['desc' => 'Videospilstitel']);
         Type::query()->updateOrCreate(['name' => 'CD'], ['desc' => 'CD-udgivelse']);
         Type::query()->updateOrCreate(['name' => 'LP'], ['desc' => 'Vinyludgivelse']);
+        Type::query()->updateOrCreate(['name' => 'Serie'], ['desc' => 'Serieudgivelse']);
     }
 }
